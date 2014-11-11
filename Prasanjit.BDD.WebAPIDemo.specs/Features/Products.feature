@@ -43,7 +43,7 @@ Scenario: Updating an product
     Then a '200 OK' is returned
     Then the product should be updated
 
- Scenario: Deleting an issue
+ Scenario: Deleting an product
     Given an existing product id '1'
     When a DELETE request is made
     Then a '200 OK' status is returned

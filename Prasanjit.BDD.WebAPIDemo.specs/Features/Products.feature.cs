@@ -180,10 +180,10 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Deleting an issue")]
-        public virtual void DeletingAnIssue()
+        [NUnit.Framework.DescriptionAttribute("Deleting an product")]
+        public virtual void DeletingAnProduct()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deleting an issue", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deleting an product", ((string[])(null)));
 #line 46
  this.ScenarioSetup(scenarioInfo);
 #line 47
