@@ -33,7 +33,7 @@
       When the client gets the product by header location
       Then the saved product matches the inputs
 
-Scenario: Updating an product
+Scenario: Updating a product
     Given the following product inputs
           | Field       | Value      |
           | Name        | Tomato Soup|
@@ -43,7 +43,7 @@ Scenario: Updating an product
     Then a '200 OK' is returned
     Then the product should be updated
 
- Scenario: Deleting an product
+ Scenario: Deleting a product
     Given an existing product id '1'
     When a DELETE request is made
     Then a '200 OK' status is returned
