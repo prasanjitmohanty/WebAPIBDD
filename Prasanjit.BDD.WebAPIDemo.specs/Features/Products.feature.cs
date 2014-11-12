@@ -159,6 +159,9 @@ this.ScenarioSetup(scenarioInfo);
                         "Field",
                         "Value"});
             table2.AddRow(new string[] {
+                        "Id",
+                        "1"});
+            table2.AddRow(new string[] {
                         "Name",
                         "Tomato Soup"});
             table2.AddRow(new string[] {
@@ -169,11 +172,11 @@ this.ScenarioSetup(scenarioInfo);
                         "3.75"});
 #line 37
     testRunner.Given("the following product inputs", ((string)(null)), table2, "Given ");
-#line 42
-    testRunner.When("a PUT request is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 43
-    testRunner.Then("a \'OK\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.When("a PUT request is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 44
+    testRunner.Then("a \'OK\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 45
     testRunner.Then("the product should be updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -184,15 +187,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void DeletingAProduct()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deleting a product", ((string[])(null)));
-#line 46
- this.ScenarioSetup(scenarioInfo);
 #line 47
-    testRunner.Given("an existing product id \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ this.ScenarioSetup(scenarioInfo);
 #line 48
-    testRunner.When("a DELETE request is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.Given("an existing product id \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 49
-    testRunner.Then("a \'OK\' status is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.When("a DELETE request is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 50
+    testRunner.Then("a \'NoContent\' status is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 51
     testRunner.Then("the product should be removed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

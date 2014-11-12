@@ -36,6 +36,7 @@
 Scenario: Updating a product
     Given the following product inputs
           | Field       | Value      |
+		  | Id			| 1			 |
           | Name        | Tomato Soup|
           | Category    | Groceries  |
 		  | Price       |3.75        |
@@ -46,5 +47,5 @@ Scenario: Updating a product
  Scenario: Deleting a product
     Given an existing product id '1'
     When a DELETE request is made
-    Then a 'OK' status is returned
+    Then a 'NoContent' status is returned
     Then the product should be removed	  

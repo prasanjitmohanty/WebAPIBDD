@@ -51,16 +51,15 @@ namespace Prasanjit.BDD.WebAPIDemo.Controllers
             return response;
         }
 
-        public HttpResponseMessage Put(int id, Product product)
-        {
-            product.Id = id;
+        public HttpResponseMessage Put(Product product)
+        {           
             if (!repository.Update(product))
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
 
             var response = Request.CreateResponse(HttpStatusCode.OK, product);
-            string uri = Url.Link("DefaultApi", new { id = id });
+            string uri = Url.Link("DefaultApi", new { id = product.Id });
             response.Headers.Location = new Uri(uri);
             return response;
         }
