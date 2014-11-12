@@ -8,12 +8,16 @@ using TechTalk.SpecFlow;
 using Newtonsoft.Json;
 using TechTalk.SpecFlow.Assist;
 using System.Net;
+using System.Configuration;
+using System.Net.Http.Headers;
 
 namespace Prasanjit.BDD.WebAPIDemo.specs
 {
     [Binding]
     public class ProductsAPISteps
     {
+        private const string Url = "http://localhost:12345/api/products/";
+        private string _format = null;
         private ProductTestModel _productTestModel = new ProductTestModel();
         private HttpResponseMessage _responseContent;
         private Product _productSaved;
@@ -33,22 +37,24 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
         [When(@"the client posts the inputs to the website")]
         public void WhenTheClientPostsTheInputsToTheWebsite()
         {
-            var client = StepHelpers.SetupHttpClient();
-
+            var request = new HttpRequestMessage(HttpMethod.Post, Url);
+            var server = new VirtualServer(WebApiConfig.Register,
+                Convert.ToBoolean(ConfigurationManager.AppSettings["UseSelfHosting"]));
             var postData = StepHelpers.SetPostData<ProductTestModel>(_productTestModel);
             HttpContent content = new FormUrlEncodedContent(postData);
-
-            _responseContent = client.PostAsync("http://localhost:52143/api/products", content).Result;
-            client.Dispose();
+            request.Content = content;
+            server.Send(request);            
         }
 
         [When(@"the client gets the product by header location")]
         public void WhenTheClientGetsTheProductByHeaderLocation()
         {
-            var client = StepHelpers.SetupHttpClient();
-            _responseContent = client.GetAsync(_responseContent.Headers.Location).Result;
-            _productSaved = JsonConvert.DeserializeObject<Product>(_responseContent.Content.ReadAsStringAsync().Result);
-            client.Dispose();
+            var request = new HttpRequestMessage(HttpMethod.Post, Url);
+            var server = new VirtualServer(WebApiConfig.Register,
+                Convert.ToBoolean(ConfigurationManager.AppSettings["UseSelfHosting"]));
+
+            _responseContent = server.Send(request);
+            _productSaved = JsonConvert.DeserializeObject<Product>(_responseContent.Content.ReadAsStringAsync().Result);           
         }
 
         [Then(@"a '(.*)' status is returned")]
@@ -68,17 +74,19 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
        [Given(@"existing products")]
         public void GivenExistingProducts()
         {
-            ScenarioContext.Current.Pending();
+            
         }
              
         [When(@"all products are retrieved")]
         public void WhenAllProductsAreRetrieved()
         {
-            var client = StepHelpers.SetupHttpClient();            
-
-            _responseContent = client.GetAsync("http://localhost:52143/api/products").Result;
-            _allProducts = JsonConvert.DeserializeObject<ProductsDTO>(_responseContent.Content.ReadAsStringAsync().Result);
-            client.Dispose();
+            var request = new HttpRequestMessage(HttpMethod.Get, Url);
+            var server = new VirtualServer(WebApiConfig.Register,
+                Convert.ToBoolean(ConfigurationManager.AppSettings["UseSelfHosting"]));
+            request.Headers.Accept.Clear();
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(
+                _format == "JSON" ? "application/json" : "application/xml"));
+            _responseContent = server.Send(request);
         }
 
         [Then(@"a '(.*)' status should be returned")]
@@ -90,6 +98,7 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
         [Then(@"all products are returned")]
         public void ThenAllProductsAreReturned()
         {
+            _allProducts = JsonConvert.DeserializeObject<ProductsDTO>(_responseContent.Content.ReadAsStringAsync().Result);
             Assert.Greater(0, _allProducts.NumberOfProducts);
         }
 
@@ -102,10 +111,13 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
         [When(@"it is retrieved")]
         public void WhenItIsRetrieved()
         {
-            var client = StepHelpers.SetupHttpClient();
-
-            _responseContent = client.GetAsync("http://localhost:52143/api/products/"+_existingProductId).Result;
-            client.Dispose();
+            var request = new HttpRequestMessage(HttpMethod.Get, Url + "/" + _existingProductId);
+            var server = new VirtualServer(WebApiConfig.Register,
+                Convert.ToBoolean(ConfigurationManager.AppSettings["UseSelfHosting"]));
+            request.Headers.Accept.Clear();
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(
+                _format == "JSON" ? "application/json" : "application/xml"));
+            _responseContent = server.Send(request);
         }
 
         [Then(@"a '(.*)' is returned")]
@@ -117,10 +129,8 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
         [Then(@"it is returned")]
         public void ThenItIsReturned()
         {
-            var client = StepHelpers.SetupHttpClient();
-            _responseContent = client.GetAsync("http://localhost:52143/api/products/" + _existingProductId).Result;
-            _productSaved = JsonConvert.DeserializeObject<Product>(_responseContent.Content.ReadAsStringAsync().Result);
-            client.Dispose();
+            var _product = JsonConvert.DeserializeObject<Product>(_responseContent.Content.ReadAsStringAsync().Result);
+            Assert.AreEqual(_product.Id, _existingProductId);
         }
 
         [Then(@"it should have an id")]
@@ -150,32 +160,37 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
         [When(@"a PUT request is made")]
         public void WhenAPUTRequestIsMade()
         {
-            var client = StepHelpers.SetupHttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Put, Url);
+            var server = new VirtualServer(WebApiConfig.Register,
+                Convert.ToBoolean(ConfigurationManager.AppSettings["UseSelfHosting"]));
 
             var postData = StepHelpers.SetPostData<ProductTestModel>(_productTestModel);
             HttpContent content = new FormUrlEncodedContent(postData);
-
-            _responseContent = client.PutAsync("http://localhost:52143/api/products", content).Result;
-            client.Dispose();
+            request.Content = content;
+            _responseContent = server.Send(request);           
         }
 
         [Then(@"the product should be updated")]
         public void ThenTheProductShouldBeUpdated()
         {
-            var client = StepHelpers.SetupHttpClient();
-            _responseContent = client.GetAsync("http://localhost:52143/api/products/" + _existingProductId).Result;
-            _productSaved = JsonConvert.DeserializeObject<Product>(_responseContent.Content.ReadAsStringAsync().Result);
-            client.Dispose();
+            var request = new HttpRequestMessage(HttpMethod.Get, Url + _existingProductId);
+            var server = new VirtualServer(WebApiConfig.Register,
+                Convert.ToBoolean(ConfigurationManager.AppSettings["UseSelfHosting"]));            
+            _productSaved = JsonConvert.DeserializeObject<Product>(_responseContent.Content.ReadAsStringAsync().Result);           
             Assert.AreEqual(_productSaved.Price, 3.75);
         }
 
         [When(@"a DELETE request is made")]
         public void WhenADELETERequestIsMade()
         {
-            var client = StepHelpers.SetupHttpClient();
-           
-            _responseContent = client.DeleteAsync("http://localhost:52143/api/products/"+ _existingProductId).Result;
-            client.Dispose();
+            var request = new HttpRequestMessage(HttpMethod.Delete, Url + _existingProductId);
+            var server = new VirtualServer(WebApiConfig.Register,
+                Convert.ToBoolean(ConfigurationManager.AppSettings["UseSelfHosting"]));
+
+            var postData = StepHelpers.SetPostData<ProductTestModel>(_productTestModel);
+            HttpContent content = new FormUrlEncodedContent(postData);
+            request.Content = content;
+            _responseContent = server.Send(request);                      
         }                      
         
         

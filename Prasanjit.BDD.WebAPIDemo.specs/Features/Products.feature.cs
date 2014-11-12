@@ -148,10 +148,10 @@ namespace Prasanjit.BDD.WebAPIDemo.specs.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Updating an product")]
-        public virtual void UpdatingAnProduct()
+        [NUnit.Framework.DescriptionAttribute("Updating a product")]
+        public virtual void UpdatingAProduct()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Updating an product", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Updating a product", ((string[])(null)));
 #line 36
 this.ScenarioSetup(scenarioInfo);
 #line hidden
@@ -180,10 +180,10 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Deleting an product")]
-        public virtual void DeletingAnProduct()
+        [NUnit.Framework.DescriptionAttribute("Deleting a product")]
+        public virtual void DeletingAProduct()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deleting an product", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deleting a product", ((string[])(null)));
 #line 46
  this.ScenarioSetup(scenarioInfo);
 #line 47
