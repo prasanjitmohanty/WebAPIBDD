@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 namespace Prasanjit.BDD.WebAPIDemo.Models
-{
+{    
     public class Product
     {
         public int Id { get; set; }

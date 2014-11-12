@@ -10,6 +10,8 @@ using Prasanjit.BDD.WebAPIDemo.Models;
 using TechTalk.SpecFlow;
 using NUnit.Framework;
 using Newtonsoft.Json;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Prasanjit.BDD.WebAPIDemo.specs
 {   
@@ -47,8 +49,16 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
         [Then(@"content is a set of products")]
         public void ThenContentIsASetOfProducts()
         {
-            //var content = _response.Content.ReadAsAsync<IEnumerable<ProductsDTO>>().Result;
-            var content = JsonConvert.DeserializeObject<ProductsDTO>(_response.Content.ReadAsStringAsync().Result);
+            var content = _response.Content.ReadAsStringAsync().Result;
+            if (_response.Content.Headers.ContentType.MediaType == "application/json")
+            {
+                var products = JsonConvert.DeserializeObject<ProductsDTO>(content);
+            }
+            else if (_response.Content.Headers.ContentType.MediaType == "application/xml")
+            {
+                var products = _response.Content.ReadAsAsync<ProductsDTO>();                           
+            }
+
         }
 
         [When(@"When an error is returned")]
