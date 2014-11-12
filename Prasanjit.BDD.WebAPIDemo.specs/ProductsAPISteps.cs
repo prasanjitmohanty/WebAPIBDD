@@ -17,7 +17,7 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
     public class ProductsAPISteps
     {
         private const string Url = "http://localhost:12345/api/products/";
-        private string _format = null;
+        private string _format = "application/json";
         private ProductTestModel _productTestModel = new ProductTestModel();
         private HttpResponseMessage _responseContent;
         private Product _productSaved;
@@ -43,7 +43,7 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
             var postData = StepHelpers.SetPostData<ProductTestModel>(_productTestModel);
             HttpContent content = new FormUrlEncodedContent(postData);
             request.Content = content;
-            server.Send(request);            
+            _responseContent = server.Send(request);            
         }
 
         [When(@"the client gets the product by header location")]
@@ -85,7 +85,7 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
                 Convert.ToBoolean(ConfigurationManager.AppSettings["UseSelfHosting"]));
             request.Headers.Accept.Clear();
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(
-                _format == "JSON" ? "application/json" : "application/xml"));
+                _format));
             _responseContent = server.Send(request);
         }
 
@@ -99,7 +99,7 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
         public void ThenAllProductsAreReturned()
         {
             _allProducts = JsonConvert.DeserializeObject<ProductsDTO>(_responseContent.Content.ReadAsStringAsync().Result);
-            Assert.Greater(0, _allProducts.NumberOfProducts);
+            Assert.Greater(_allProducts.NumberOfProducts,0);
         }
 
         [Given(@"an existing product id '(.*)'")]
@@ -111,12 +111,12 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
         [When(@"it is retrieved")]
         public void WhenItIsRetrieved()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, Url + "/" + _existingProductId);
+            var request = new HttpRequestMessage(HttpMethod.Get, Url + _existingProductId);
             var server = new VirtualServer(WebApiConfig.Register,
                 Convert.ToBoolean(ConfigurationManager.AppSettings["UseSelfHosting"]));
             request.Headers.Accept.Clear();
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(
-                _format == "JSON" ? "application/json" : "application/xml"));
+                _format));
             _responseContent = server.Send(request);
         }
 

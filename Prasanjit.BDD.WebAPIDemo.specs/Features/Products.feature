@@ -8,13 +8,13 @@
  Scenario: Retrieving all Products
     Given existing products
     When all products are retrieved
-    Then a '200 OK' status is returned
+    Then a 'OK' status is returned
     Then all products are returned
 	
   Scenario: Retrieving a product by id
     Given an existing product id '1'
     When it is retrieved
-    Then a '200 OK' status is returned
+    Then a 'OK' status is returned
     Then it is returned
     Then it should have an id
     Then it should have a title
@@ -29,7 +29,7 @@
 		  | Price       | 2.75       |
 		            
       When the client posts the inputs to the website
-      Then a '201 Created' status should be returned
+      Then a 'Created' status should be returned
       When the client gets the product by header location
       Then the saved product matches the inputs
 
@@ -40,11 +40,11 @@ Scenario: Updating a product
           | Category    | Groceries  |
 		  | Price       |3.75        |
     When a PUT request is made
-    Then a '200 OK' is returned
+    Then a 'OK' is returned
     Then the product should be updated
 
  Scenario: Deleting a product
     Given an existing product id '1'
     When a DELETE request is made
-    Then a '200 OK' status is returned
+    Then a 'OK' status is returned
     Then the product should be removed	  

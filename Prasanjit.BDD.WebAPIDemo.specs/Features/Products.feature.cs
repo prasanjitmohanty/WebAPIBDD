@@ -79,7 +79,7 @@ namespace Prasanjit.BDD.WebAPIDemo.specs.Features
 #line 10
     testRunner.When("all products are retrieved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
-    testRunner.Then("a \'200 OK\' status is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("a \'OK\' status is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 12
     testRunner.Then("all products are returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -98,7 +98,7 @@ namespace Prasanjit.BDD.WebAPIDemo.specs.Features
 #line 16
     testRunner.When("it is retrieved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 17
-    testRunner.Then("a \'200 OK\' status is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("a \'OK\' status is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 18
     testRunner.Then("it is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 19
@@ -138,7 +138,7 @@ namespace Prasanjit.BDD.WebAPIDemo.specs.Features
 #line 31
       testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 32
-      testRunner.Then("a \'201 Created\' status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+      testRunner.Then("a \'Created\' status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 33
       testRunner.When("the client gets the product by header location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 34
@@ -172,7 +172,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 42
     testRunner.When("a PUT request is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 43
-    testRunner.Then("a \'200 OK\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("a \'OK\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 44
     testRunner.Then("the product should be updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -191,7 +191,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 48
     testRunner.When("a DELETE request is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 49
-    testRunner.Then("a \'200 OK\' status is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("a \'OK\' status is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 50
     testRunner.Then("the product should be removed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
