@@ -48,13 +48,8 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
 
         [When(@"the client gets the product by header location")]
         public void WhenTheClientGetsTheProductByHeaderLocation()
-        {
-            var request = new HttpRequestMessage(HttpMethod.Post, Url);
-            var server = new VirtualServer(WebApiConfig.Register,
-                Convert.ToBoolean(ConfigurationManager.AppSettings["UseSelfHosting"]));
-
-            _responseContent = server.Send(request);
-            _productSaved = JsonConvert.DeserializeObject<Product>(_responseContent.Content.ReadAsStringAsync().Result);           
+        {            
+            _productSaved = JsonConvert.DeserializeObject<Product>(_responseContent.Content.ReadAsStringAsync().Result);              
         }
 
         [Then(@"a '(.*)' status is returned")]
@@ -129,8 +124,8 @@ namespace Prasanjit.BDD.WebAPIDemo.specs
         [Then(@"it is returned")]
         public void ThenItIsReturned()
         {
-            var _product = JsonConvert.DeserializeObject<Product>(_responseContent.Content.ReadAsStringAsync().Result);
-            Assert.AreEqual(_product.Id, _existingProductId);
+            _productSaved = JsonConvert.DeserializeObject<Product>(_responseContent.Content.ReadAsStringAsync().Result);
+            Assert.AreEqual(_productSaved.Id, _existingProductId);
         }
 
         [Then(@"it should have an id")]
